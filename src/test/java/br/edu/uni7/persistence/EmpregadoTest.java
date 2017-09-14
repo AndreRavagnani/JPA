@@ -63,10 +63,20 @@ public class EmpregadoTest {
 
 		prj.setEmpregados(emps);
 
+		System.out.println(emp.getVersao());
 		manager.getTransaction().begin();
 		manager.persist(emp);
 		manager.getTransaction().commit();
 
+		Empregado userManaged = manager.find(Empregado.class, emp.getId());
+		
+		System.out.println(userManaged.getVersao());
+		
+		manager.getTransaction().begin();
+		manager.merge(userManaged);
+		manager.getTransaction().commit();
+		System.out.println(userManaged.getVersao());
+		
 		manager.getTransaction().begin();
 		manager.persist(prj);
 		manager.getTransaction().commit();

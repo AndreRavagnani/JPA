@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
 @Entity
 public class Empregado {
@@ -28,6 +29,18 @@ public class Empregado {
 	String email;
 	Date nascimento;
 	BigDecimal salario;
+	
+	@Version
+	@Column(name="Versao")
+	Long versao;
+
+	public Long getVersao() {
+		return versao;
+	}
+
+	public void setVersao(Long versao) {
+		this.versao = versao;
+	}
 
 	@OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JoinColumn(name = "FK_DOCUMENTO")
