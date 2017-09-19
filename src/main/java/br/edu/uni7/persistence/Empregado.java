@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Version;
 
 @Entity
@@ -28,10 +30,12 @@ public class Empregado {
 	String nome;
 	String email;
 	Date nascimento;
+
+	//@DecimalMin("900.00")
 	BigDecimal salario;
-	
+
 	@Version
-	@Column(name="Versao")
+	@Column(name = "Versao")
 	Long versao;
 
 	public Long getVersao() {
@@ -126,6 +130,14 @@ public class Empregado {
 
 	public void setSalario(BigDecimal salario) {
 		this.salario = salario;
+	}
+
+	@PrePersist
+	@PreUpdate
+	public void verificaNome() throws Exception {
+		if (this.nome == null) {
+			throw new Exception("Nome Nulo");
+		}
 	}
 
 }
