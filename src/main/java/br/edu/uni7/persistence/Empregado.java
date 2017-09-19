@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
+import javax.validation.constraints.DecimalMin;
 
 @Entity
 public class Empregado {
@@ -31,7 +32,7 @@ public class Empregado {
 	String email;
 	Date nascimento;
 
-	//@DecimalMin("900.00")
+	@DecimalMin("900.00")
 	BigDecimal salario;
 
 	@Version
